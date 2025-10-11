@@ -1,4 +1,7 @@
+-- All of these proofs worked with Lean4 v4.22 (probably also works with v4.23, but haven't confirmed)
+--
 -- Difference of squares: a^2 - b^2 = (a + b)(a - b)
+--
 theorem sq_sub_sq (a b : Nat) : a^2 - b^2 = (a + b) * (a - b) := by
     cases b with
     | zero => rw [Nat.add_zero, Nat.sub_zero, Nat.sub_zero, Nat.pow_two]
@@ -22,12 +25,15 @@ theorem sq_sub_sq_literal : 5^2 - 2^2 = (5 + 2) * (5 - 2) := sq_sub_sq 5 2
 -- This is how to use an existing theorem in tactic mode using the `exact` tactic
 theorem sq_sub_sq_literal' : 5^2 - 2^2 = (5 + 2) * (5 - 2) := by
     exact sq_sub_sq 5 2
-
+--
 -- Cube of sum: (a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3
+--
+-- Helper theorem
 theorem pow_three (a : Nat) : a^3 = a * a * a := by
     repeat rw [Nat.pow_succ]
     rw [Nat.pow_zero, Nat.one_mul]
 
+-- Helper theorem
 theorem add_two_times_self_eq_three_times (a : Nat) : a + 2 * a = 3 * a := by
     rw [Nat.mul_comm 3 a, Nat.mul_succ, Nat.mul_comm, Nat.add_comm]
 
@@ -54,7 +60,9 @@ theorem add_pow_three (a b : Nat) : (a + b)^3 = a^3 + 3*a^2*b + 3*a*b^2 + b^3 :=
         ← Nat.mul_assoc, ← Nat.mul_assoc] -- Shift a lot of brackets and do rearranges to get `3*a^2*b` and `3a*b^2` terms
     rw [← Nat.add_assoc, ← Nat.add_assoc] -- Shift the last set of brackets
 
+--
 -- Difference of cubes: a^3 - b^3 = (a - b)(a^2 + a*b + b^2)
+--
 theorem cube_sub_cube (a b : Int) : a^3 - b^3 = (a - b) * (a^2 + a*b + b^2) := by
     symm
     rw [Int.sub_mul]
@@ -68,7 +76,9 @@ theorem cube_sub_cube (a b : Int) : a^3 - b^3 = (a - b) * (a^2 + a*b + b^2) := b
     rw [Int.add_left_comm (a*b^2) (-(a^2*b)) (-(a*b^2) + -b^3),
         Int.add_neg_cancel_left, Int.add_neg_cancel_left, Int.add_neg_eq_sub]
 
+--
 -- Square of Trinomial: (a + b + c)^2 = a^2 + b^2 + c^2 + 2ab + 2bc + 2ca
+--
 theorem add_three_term_sq (a b c : Nat) : (a + b + c)^2 = a^2 + b^2 + c^2 + 2*a*b + 2*b*c + 2*c*a := by
     rw [Nat.pow_two, Nat.add_mul, Nat.add_mul]
     repeat rw [Nat.mul_add]

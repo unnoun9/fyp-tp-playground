@@ -104,7 +104,7 @@ def origin : vec2 := { x := 0, y := 0 }
 #check vec3.overridedConstructor 1 2 3
 
 -- Functions on structures
-def vec2.modifyBoth (f : Float → Float ) (u : vec2) : vec2 :=
+def vec2.modifyBoth (f : Float → Float) (u : vec2) : vec2 :=
     { x := f u.x, y := f u.y }
 def fourandthree : vec2 := vec2.mk 4.3 3.4
 #eval fourandthree.modifyBoth Float.floor
@@ -117,7 +117,7 @@ structure RectangularPrism where
 
 def volumeRect (prism : RectangularPrism) : Float :=
     prism.width * prism.height * prism.depth
-#check volume
+#check volumeRect
 
 def prism : RectangularPrism := RectangularPrism.mk 1 2 3
 #eval volumeRect prism
@@ -279,7 +279,7 @@ structure meProd (α β : Type) : Type where
     fst : α
     snd : β
 
-def fives : String ×  Int := { fst := "five", snd := 5}
+def fives : String × Int := { fst := "five", snd := 5 }
 def fives2 : String × Int := ("five", 5)
 def sevens : String × Int × Nat := ("VII", 7, 4 + 3)
 def sevens2 : String × Int × Nat := ("VII", (7, 4 + 3))
@@ -569,7 +569,7 @@ open space_of_name in -- Omit `in` to use namespace globally in the file
 #check quadruple
 
 -- `if let`:
-inductive Inline : Type wjere
+inductive Inline : Type where
     | linebreak
     | string : String → Inline
     | emph : Inline → Inline
@@ -598,5 +598,3 @@ theorem add_comm (a b : Nat) : a + b = b + a := by
     induction b with
     | zero => rw [Nat.add_zero, Nat.zero_add]
     | succ b ih => rw [Nat.add_succ, ih, Nat.succ_add]
-
-

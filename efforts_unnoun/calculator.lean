@@ -1,7 +1,7 @@
 -- the calculator will use these expressions as baseline for evaluating
 -- calculator only available for natural numbers' addition, multiplication, and exponentiation, for now
 -- the precedence order will be pow > mul > add, which is enforced in the some parsing function rather than evaluation
--- right now, there is not parser here, just an evaluator that uses AST of expressions
+-- right now there is not parser here, just an evaluator that uses AST of expressions
 inductive exp where
     | num : Nat → exp
     | add : exp → exp → exp
